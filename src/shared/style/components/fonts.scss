@@ -1,0 +1,28 @@
+// Definir las fuentes personalizadas
+@font-face {
+  font-family: 'BRSonoma';
+  src: url('/assets/fonts/BRSonoma-Bold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BRSonoma';
+  src: url('/assets/fonts/BRSonoma-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BRSonoma';
+  src: url('/assets/fonts/BRSonoma-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BRSonoma';
+  src: url('/assets/fonts/BRSonoma-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
