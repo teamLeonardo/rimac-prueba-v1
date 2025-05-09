@@ -35,19 +35,20 @@ const CardSelectDefault: React.FC<CardSelectDefaultProps> = ({
     >
       <div className="absolute right-4 top-4">
         <div className="relative h-auto w-auto">
-          <label>
-            <input
-              type="radio"
-              value={name}
-              name={name}
-              className="radio-success radio"
-              checked={isSelected}
-              onChange={(e) => {
-                e.stopPropagation()
-                handleCardClick()
-              }}
-            />
+          <label htmlFor="$check-private" className="sr-only">
           </label>
+          <input
+            id='$check-private'
+            type="radio"
+            value={name}
+            name={name}
+            className="radio-success radio"
+            checked={isSelected}
+            onChange={(e) => {
+              e.stopPropagation()
+              handleCardClick()
+            }}
+          />
           <div className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 text-[10px] text-white ">
             <svg
               width="1em" // Hereda el tamaño de fuente del padre

@@ -39,22 +39,22 @@ const ListCardSelect = ({ data }: any) => {
     <div className="flex w-full flex-wrap justify-center gap-8">
       <Suspense fallback={<Load />}>
 
-      {dataList?.map((item, idx: number) => (
-        <CardSelectDefault
-        isSelected={item.id === currentIdSelect}
-        name={'type-plan' + idx}
-        onChange={() => {
-          if (item.id !== currentIdSelect) {
-            handleSelectPath(item.id);
-          } else {
-            handleSelectPath(null);
-          }
-        }}
-        iconHome={item.icon}
-        data={item}
-        key={idx}
-        />
-      ))}
+        {dataList?.map((item, idx: number) => (
+          <CardSelectDefault
+            isSelected={item.id === currentIdSelect}
+            name={'type-plan' + idx}
+            onChange={() => {
+              if (item.id !== currentIdSelect) {
+                handleSelectPath(item.id);
+              } else {
+                handleSelectPath(null);
+              }
+            }}
+            iconHome={item.icon}
+            data={item}
+            key={idx}
+          />
+        ))}
       </Suspense>
     </div>
   )
