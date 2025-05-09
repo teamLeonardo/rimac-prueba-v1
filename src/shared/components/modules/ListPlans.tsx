@@ -10,6 +10,7 @@ import { calcularEdad } from '@/shared/utils/calcular'
 import { RootState } from '@/shared/store/store'
 import { CardPlansDefault } from '../widgets/card-plans'
 import LoaderListPlans from './LoaderListPlans'
+import { IUser } from '@/module/users/types/responseUser'
 
 const PlansList = () => {
   const [stateView, setStateView] = useState(0)
@@ -24,10 +25,22 @@ const PlansList = () => {
 
   useEffect(() => {
     // Solo ejecutar si hay datos de usuario y estado de ubicación
-    if (userData && location.state) {
-      dispatch(setUser({ ...userData, ...location.state }))
+    if (userData || location.state) {
+      let newUserData = userData ? userData : {}
+      if (location.state) {
+        newUserData = { ...newUserData, ...location.state }
+      }
+      dispatch(setUser(newUserData as IUser))
     }
   }, [userData, location.state]) // Asegúrate de incluir dispatch en las dependencias
+
+  useEffect(() => {
+    const container: any = scrollContainerRef.current
+    if (container && plansData && plansData?.list.length > 0) {
+      container.scrollIntoView({ behavior: 'smooth', inline: 'center' })
+      setStateView(0)
+    }
+  }, [plansData])
 
   // Cargar estado
   if (isLoadingPlans || isLoadingUser) {

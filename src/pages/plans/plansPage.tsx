@@ -1,16 +1,14 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectIsOpenPlans } from '@/module/plans/store/slicePlans'
 import { RootState } from '@/shared/store/store'
-import LoaderListPlans from '@/shared/components/modules/LoaderListPlans'
+import { Outlet, useLocation } from 'react-router-dom'
+import ListCardSelect from '@/shared/components/modules/ListCardSelect'
 
-const PlansList = React.lazy(() => import('@/shared/components/modules/ListPlans'))
-const ListCardSelect = React.lazy(() => import('@/shared/components/modules/ListCardSelect'))
 
 const PlansPage = () => {
-  // No necesitas envolver useSelector con startTransition
-  const isOpen = useSelector(selectIsOpenPlans)
   const user = useSelector((state: RootState) => state.userState.user)
+  const location = useLocation()
+
   return (
     <>
       <div className="mx-auto grid w-full gap-4 md:w-[544px]">
@@ -22,16 +20,9 @@ const PlansPage = () => {
             Selecciona la opción que se ajuste más a tus necesidades.
           </p>
         </div>
-        {/* Esto puede ir sin Suspense si no está cargando asíncronamente */}
-        <ListCardSelect />
+        <ListCardSelect data={location.state} />
       </div>
-      {isOpen && (
-        <div className="mx-auto w-11/12 md:w-8/12 ">
-          <Suspense fallback={<LoaderListPlans />}>
-            <PlansList />
-          </Suspense>
-        </div>
-      )}
+      <Outlet />
     </>
   )
 }

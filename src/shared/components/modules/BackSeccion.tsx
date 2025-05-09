@@ -1,13 +1,25 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 const BackSeccion = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const handleBack = () => {
+    const isPlans = location.pathname.includes('plans')
+    const isResume = location.pathname.includes('resume')
+    if (isPlans) {
+      navigate('/')
+    }
+    if (isResume) {
+      navigate(-1)
+    }
+  }
+
   return (
     <div className="mx-auto hidden w-8/12 md:block">
       <div
         className="flex w-fit cursor-pointer items-center gap-2 rounded-md border-2 border-solid border-white p-2 hover:border-2 hover:border-[#4F4FFF]"
         onClick={() => {
-          navigate(-1)
+          handleBack()
         }}
       >
         <svg

@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setOpenPlans } from '@/module/plans/store/slicePlans'
+import React from 'react'
 import IconAddUserLight from '@/shared/assets/icons/IconAddUserLight.svg'
 import IconProtectionLight from '@/shared/assets/icons/IconProtectionLight.svg'
 import { CardSelectDefault } from '../widgets/card-select'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const ListCardSelect = () => {
-  const [currentIdSelect, setCurentIdSelect] = useState<null | number>(null)
-  const dispatch = useDispatch()
+const ListCardSelect = ({ data }: any) => {
+  const navigate = useNavigate()
+  
+  const { id } = useParams()
 
+  const state = data || {}
+  const currentIdSelect = id ? parseInt(id) : null
   const dataList = [
     {
       id: 1,
@@ -23,6 +25,14 @@ const ListCardSelect = () => {
       description: 'Realiza una cotización para uno de tus familiares o cualquier persona.',
     },
   ]
+
+  const handleSelectPath = (id: number | null) => {
+    if (id === null) {
+      navigate('/plans', { state })
+    } else {
+      navigate('/plans/' + id, { state })
+    }
+  }
   return (
     <div className="flex w-full flex-wrap justify-center gap-8">
       {dataList?.map((item, idx: number) => (
@@ -31,11 +41,9 @@ const ListCardSelect = () => {
           name={'type-plan' + idx}
           onChange={() => {
             if (item.id !== currentIdSelect) {
-              setCurentIdSelect(item.id)
-              dispatch(setOpenPlans(true))
+              handleSelectPath(item.id);
             } else {
-              setCurentIdSelect(null)
-              dispatch(setOpenPlans(false))
+              handleSelectPath(null);
             }
           }}
           iconHome={item.icon}

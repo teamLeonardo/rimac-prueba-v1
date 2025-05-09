@@ -1,9 +1,20 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { To, useLocation, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 
 const StepsInputMovil = ({ data, step }: { data: any; step: number }) => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const handleBack = () => {
+    const isPlans = location.pathname.includes('plans')
+    const isResume = location.pathname.includes('resume')
+    if (isPlans) {
+      navigate('/')
+    }
+    if (isResume) {
+      navigate(-1)
+    }
+  }
   return (
     <div className="grid w-11/12 grid-cols-[auto,auto,1fr] gap-4 ">
       <button
@@ -11,8 +22,8 @@ const StepsInputMovil = ({ data, step }: { data: any; step: number }) => {
           'flex h-8 w-8 items-center justify-center rounded-full border-2 border-solid border-[#7981B2] text-[#7981B2] ',
           ['hover:border-[#432EFF] hover:text-[#432EFF]'],
         )}
-        onClick={() => navigate(-1)}
-        // onClick={handlePrev}
+        onClick={() => handleBack()}
+      // onClick={handlePrev}
       >
         <svg
           width="16"

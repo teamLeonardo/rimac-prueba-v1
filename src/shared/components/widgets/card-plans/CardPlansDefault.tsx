@@ -42,7 +42,9 @@ const CardPlansDefault = ({
         <div className="absolute bottom-0 right-0 flex w-full justify-end">
           <button
             className="btn-primary btn-circle btn w-full"
-            onClick={() => navigate('/plans/resume', { state: { plan: data, user: userData } })}
+            onClick={() => {
+              navigate('/resume', { state: { plan: data, user: userData } , preventScrollReset: false })
+            }}
           >
             Seleccionar Plan
           </button>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useTransition } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import classNames from 'classnames'
 import { z } from 'zod'
 import { GroupInput } from '@/shared/components/widgets'
+import { slep } from '@/shared/utils'
 
 // Definir esquema de validación con Zod
 const schema = z.object({
@@ -26,7 +27,7 @@ const schema = z.object({
 type FormInputs = z.infer<typeof schema>
 
 const FormHome: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isPending, setPending] = useState(false)
   const navigate = useNavigate()
   const {
     register,
@@ -38,13 +39,10 @@ const FormHome: React.FC = () => {
   })
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    setIsLoading(true) // Establece isLoading en true al iniciar el envío
-
-    // Simula un envío de datos (aquí puedes hacer tu llamada a la API)
-    // await new Promise((resolve) => setTimeout(resolve, 5000));
-
-    setIsLoading(false) // Establece isLoading en false al finalizar
+    setPending(true)
+    await slep(1000)
     navigate('/plans', { state: data })
+
   }
   return (
     <form className="w-full space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -52,9 +50,8 @@ const FormHome: React.FC = () => {
         <GroupInput>
           <select
             {...register('documentType')}
-            className={`select-bordered select join-item h-full border-[#5E6488] ${
-              errors.documentType ? 'border-red-500' : ''
-            }`}
+            className={`select-bordered select join-item h-full border-[#5E6488] ${errors.documentType ? 'border-red-500' : ''
+              }`}
           >
             <option value="">Selecciona tipo de documento</option>
             <option value="DNI">DNI</option>
@@ -64,9 +61,8 @@ const FormHome: React.FC = () => {
             type="text"
             placeholder="Nro. de documento"
             {...register('documentNumber')}
-            className={`input-bordered input join-item h-full w-full border-[#5E6488] ${
-              errors.documentNumber ? 'border-red-500' : ''
-            }`}
+            className={`input-bordered input join-item h-full w-full border-[#5E6488] ${errors.documentNumber ? 'border-red-500' : ''
+              }`}
           />
         </GroupInput>
         {errors.documentType && <p className="text-red-500">{errors.documentType.message}</p>}
@@ -77,9 +73,8 @@ const FormHome: React.FC = () => {
           type="text"
           placeholder="Celular"
           {...register('cellPhone')}
-          className={`input-bordered input join-item h-[56px] w-full border-[#5E6488] ${
-            errors.cellPhone ? 'border-red-500' : ''
-          }`}
+          className={`input-bordered input join-item h-[56px] w-full border-[#5E6488] ${errors.cellPhone ? 'border-red-500' : ''
+            }`}
         />
         {errors.cellPhone && <p className="text-red-500">{errors.cellPhone.message}</p>}
       </div>
@@ -128,12 +123,12 @@ const FormHome: React.FC = () => {
         </a>
       </p>
       <button
-        disabled={isLoading}
+        disabled={isPending}
         type="submit"
         className={classNames(
           'btn-lg btn w-full rounded-full bg-black px-10 text-white md:w-auto',
           {
-            'cursor-not-allowed opacity-50': isLoading,
+            'cursor-not-allowed opacity-50': isPending,
           },
         )}
       >
