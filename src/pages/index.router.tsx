@@ -1,6 +1,7 @@
-import { Load } from '@/shared/components/modules/LoaderSeccion'
 import React, { lazy, FC, Suspense } from 'react'
-import { createBrowserRouter } from 'react-router-dom'
+import { ErrorBoundary } from '@/shared/components/layouts/ErrorBoundary'
+import { Load } from '@/shared/components/modules/LoaderSeccion'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 // Carga dinámica de los componentes
 const HomePage = lazy(() => import('./home/homePage'))
@@ -14,13 +15,11 @@ const DefaultLayout = lazy(() => import('@/shared/components/layouts/default.lay
 // Función para envolver componentes en Suspense
 const withSuspense = (Component: FC) => {
   return (
-    <Suspense
-      fallback={
-        <Load />
-      }
-    >
-      <Component />
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<Load />}>
+        <Component />
+      </Suspense>
+    </ErrorBoundary>
   )
 }
 
@@ -58,6 +57,10 @@ export const router = createBrowserRouter([
             element: withSuspense(PlansResume),
           },
         ]
+      },
+      {
+        path: '*',
+        element: <Navigate to="/" replace />,
       },
     ],
   },
