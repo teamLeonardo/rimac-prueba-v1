@@ -1,11 +1,14 @@
-import React from 'react'
+import React from 'react';
+
 export default function LoaderListPlans() {
-  const dataFacke = Array(3).fill(null)
+  const dataFacke = Array(3).fill(null);
+
   return (
     <div className="flex w-full flex-wrap justify-center gap-8">
       {dataFacke.map((_: any, idx: number) => (
         <div
           key={idx}
+          role="article"  // Agregar el rol 'article' aquí
           className="card h-[687px] w-[288px] gap-4 border border-[#cccccc] p-[68px_32px_48px_32px] shadow-2xl"
         >
           <div className="skeleton h-32 w-full"></div>
@@ -16,5 +19,5 @@ export default function LoaderListPlans() {
         </div>
       ))}
     </div>
-  )
+  );
 }
