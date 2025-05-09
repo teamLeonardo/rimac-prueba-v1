@@ -1,5 +1,5 @@
 import React from 'react'
-export const FloatHome = () => {
+const FloatHome = () => {
   return (
     <>
       <div className="absolute left-0 top-[30%] z-[-1]  h-screen w-[500px] -translate-x-[70%] md:top-0 md:-translate-x-[50%] ">
@@ -15,3 +15,5 @@ export const FloatHome = () => {
     </>
   )
 }
+
+export default FloatHome

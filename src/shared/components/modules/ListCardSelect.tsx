@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import IconAddUserLight from '@/shared/assets/icons/IconAddUserLight.svg'
 import IconProtectionLight from '@/shared/assets/icons/IconProtectionLight.svg'
-import { CardSelectDefault } from '../widgets/card-select'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Load } from './LoaderSeccion'
+
+const CardSelectDefault = React.lazy(() => import('@/shared/components/widgets/card-select/CardSelectDefault'))
 
 const ListCardSelect = ({ data }: any) => {
   const navigate = useNavigate()
-  
+
   const { id } = useParams()
 
   const state = data || {}
@@ -35,22 +37,25 @@ const ListCardSelect = ({ data }: any) => {
   }
   return (
     <div className="flex w-full flex-wrap justify-center gap-8">
+      <Suspense fallback={<Load />}>
+
       {dataList?.map((item, idx: number) => (
         <CardSelectDefault
-          isSelected={item.id === currentIdSelect}
-          name={'type-plan' + idx}
-          onChange={() => {
-            if (item.id !== currentIdSelect) {
-              handleSelectPath(item.id);
-            } else {
-              handleSelectPath(null);
-            }
-          }}
-          iconHome={item.icon}
-          data={item}
-          key={idx}
+        isSelected={item.id === currentIdSelect}
+        name={'type-plan' + idx}
+        onChange={() => {
+          if (item.id !== currentIdSelect) {
+            handleSelectPath(item.id);
+          } else {
+            handleSelectPath(null);
+          }
+        }}
+        iconHome={item.icon}
+        data={item}
+        key={idx}
         />
       ))}
+      </Suspense>
     </div>
   )
 }

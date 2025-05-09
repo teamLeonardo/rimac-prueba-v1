@@ -1,3 +1,4 @@
+import { Load } from '@/shared/components/modules/LoaderSeccion'
 import React, { lazy, FC, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
@@ -15,9 +16,7 @@ const withSuspense = (Component: FC) => {
   return (
     <Suspense
       fallback={
-        <div className="flex h-full w-full items-center justify-center">
-          <span className="loading loading-infinity loading-lg"></span>
-        </div>
+        <Load />
       }
     >
       <Component />

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/shared/store/store'
 import { Outlet, useLocation } from 'react-router-dom'
-import ListCardSelect from '@/shared/components/modules/ListCardSelect'
+import { Load } from '@/shared/components/modules/LoaderSeccion'
 
+const ListCardSelect = React.lazy(() => import('@/shared/components/modules/ListCardSelect'))
 
 const PlansPage = () => {
   const user = useSelector((state: RootState) => state.userState.user)
@@ -20,7 +21,9 @@ const PlansPage = () => {
             Selecciona la opción que se ajuste más a tus necesidades.
           </p>
         </div>
-        <ListCardSelect data={location.state} />
+        <Suspense fallback={<Load />}>
+          <ListCardSelect data={location.state} />
+        </Suspense>
       </div>
       <Outlet />
     </>
