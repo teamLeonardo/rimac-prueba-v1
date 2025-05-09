@@ -1,5 +1,5 @@
 import React from 'react'
-import { To, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 
 const StepsInputMovil = ({ data, step }: { data: any; step: number }) => {
