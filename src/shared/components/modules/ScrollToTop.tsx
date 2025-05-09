@@ -9,7 +9,7 @@ const ScrollToTop = () => {
         if (scrollContainer) {
             scrollContainer.scrollTo({
                 top: 0,
-                behavior: 'instant',
+                behavior: 'auto',
             });
         }
     }, [pathname]);
