@@ -37,6 +37,7 @@ const HomePage = () => (
             alt="Happy family"
             width="136px"
             height="160px"
+            loading='lazy'
             className="relative z-10 rounded-lg shadow-lg  md:hidden"
           />
         </div>

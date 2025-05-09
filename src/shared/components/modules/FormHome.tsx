@@ -48,10 +48,12 @@ const FormHome: React.FC = () => {
     <form className="w-full space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid w-full gap-2">
         <GroupInput>
+          <label htmlFor="my-select" className="sr-only">Elige una opción</label>
           <select
             {...register('documentType')}
             className={`select-bordered select join-item h-full border-[#5E6488] ${errors.documentType ? 'border-red-500' : ''
               }`}
+            id='my-select'
           >
             <option value="">Selecciona tipo de documento</option>
             <option value="DNI">DNI</option>

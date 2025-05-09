@@ -68,7 +68,7 @@ const CardSelectDefault: React.FC<CardSelectDefaultProps> = ({
       </div>
       <div className="card-body">
         <div>
-          <img width={48} height={48} src={iconHome} alt="icono home" />
+          <img width={48} height={48} src={iconHome} alt="icono home" loading='lazy' />
         </div>
         <h2 className="card-title">{data.title}</h2>
         <p className="card-compact text-xs">{data.description}</p>
